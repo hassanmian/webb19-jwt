@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage';
 import PrivateRouter from './components/PrivateRouter';
 import PrivatePage from './pages/PrivatePage';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
       <Switch>
         <Route path="/login" component={LoginPage} />
         <PrivateRouter path="/private" component={PrivatePage} />
+        
+        <Route path="/404" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
 
       {/* {token && <button onClick={fetchMe}> Fetch Me </button> }
