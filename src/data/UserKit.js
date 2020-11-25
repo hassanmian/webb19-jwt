@@ -50,4 +50,8 @@ export default class {
   getToken() {
     return localStorage.getItem("JWT_APP")
   }
+
+  deleteToken() {
+    localStorage.removeItem("JWT_APP")
+  }
 }

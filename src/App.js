@@ -2,60 +2,36 @@ import React, {useState} from 'react'
 import logo from './logo.svg';
 import './App.css';
 import UserKit from './data/UserKit';
+import { Switch, Route } from 'react-router-dom'
+import LoginPage from './pages/LoginPage';
+import PrivateRouter from './components/PrivateRouter';
+import PrivatePage from './pages/PrivatePage';
 
 function App() {
-  const [emailInput, setEmailInput] = useState("webb19@willandskill.se")
-  const [passwordInput, setPasswordInput] = useState("javascriptoramverk")
 
-  const [token, setToken] = useState(null)
-  const userKit = new UserKit()
+  // function fetchMe() {
+  //   userKit.getMe()
+  //   .then(res=>res.json())
+  //   .then(data => console.log(data))
+  // }
 
-  function handleOnClick() {
-    handleLogin(emailInput, passwordInput)
-  }
-
-  function handleLogin(email, password) {
-    userKit.login(email, password)
-    .then(res => res.json())
-    .then(data => {
-      setToken(data.token)
-      userKit.setToken(data.token)
-    })
-  }
-
-  function fetchMe() {
-    userKit.getMe()
-    .then(res=>res.json())
-    .then(data => console.log(data))
-  }
-
-  function fetchCustomerList() {
-    userKit.getCustomerList()
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  // function fetchCustomerList() {
+  //   userKit.getCustomerList()
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
   return (
     <div>
-      <h1>JWT</h1>
-      <input 
-        type="text" 
-        value={emailInput} 
-        onChange={e => setEmailInput(e.target.value)}
-        placeholder="Email"
-      />
-      <input 
-        type="password" 
-        value={passwordInput}
-        onChange={e => setPasswordInput(e.target.value)}
-        placeholder="Password"
-      />
-      <button onClick={handleOnClick}>Login</button>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <PrivateRouter path="/private" component={PrivatePage} />
+      </Switch>
 
-      {token && <button onClick={fetchMe}> Fetch Me </button> }
-      {token && <button onClick={fetchCustomerList}> Get Customers </button> }
+      {/* {token && <button onClick={fetchMe}> Fetch Me </button> }
+      {token && <button onClick={fetchCustomerList}> Get Customers </button> } */}
     </div>
   );
 }
